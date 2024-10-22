@@ -31,7 +31,7 @@ const TAB_DATA = [
         id: "certifications",
         content: (
             <ul>
-                
+                <li>Certification Back End From Dicoding Academy</li>
             </ul>
         ),
     },

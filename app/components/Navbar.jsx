@@ -5,7 +5,7 @@ import NavLink from "./Navlink";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
 import MenuOverlay from "./MenuOverlay";
 
-const navLinks = [
+const navbarLink = [
     {
         title: "About",
         path: "#about",
@@ -50,7 +50,7 @@ const Navbar = () => {
                 </div>
                 <div className="menu hidden md:block md:w-auto" id="navbar">
                     <ul className="flex p-4 md:p-0 md:f<lex-row md:space-x-8">
-                        {navLinks.map((link, index) => (
+                        {navbarLink.map((link, index) => (
                             <li key={index}>
                                 <NavLink href={link.path} title={link.title} />
                             </li>
@@ -58,7 +58,7 @@ const Navbar = () => {
                     </ul>
                 </div>
             </div>
-            {navbarOpen?<MenuOverlay links={navLinks}/>:null}
+            {navbarOpen?<MenuOverlay links={navbarLink}/>:null}
         </nav>
     );
 };
