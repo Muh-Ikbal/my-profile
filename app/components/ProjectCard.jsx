@@ -1,9 +1,12 @@
+"use client";
 import React from "react";
+import { motion } from "framer-motion";
 import { EyeIcon, CodeBracketIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 const ProjectCard = ({ imgUrl, title, description, gitUrl, linkPreview }) => {
     return (
-        <div>
+        <motion.div whileHover={{ scale: 1.1 }}
+    whileTap={{ scale: 0.9 }}>
             <div
                 className="h-52 md:h-72 rounded relative group"
                 style={{
@@ -32,7 +35,7 @@ const ProjectCard = ({ imgUrl, title, description, gitUrl, linkPreview }) => {
                 <h5 className="mb-2 text-xl font-semibold">{title}</h5>
                 <p className="text-[#ADB7BE]">{description}</p>
             </div>
-        </div>
+        </motion.div>
     );
 };
 

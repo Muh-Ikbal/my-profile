@@ -1,63 +1,27 @@
 "use client";
-import React, { useState } from "react";
+import React, { Suspense, useState } from "react";
 import ProjectCard from "./ProjectCard";
 import ProjectTag from "./ProjectTag";
+import { motion } from "framer-motion";
+import { listProject } from "../Data/Project";
 
-const listProject = [
-    {
-        id: 1,
-        title: "Website Portfolio",
-        linkImage: "/images/project/website-portfolio.png",
-        deskripsi:
-            "Membangun website portfolio pribadi menggunakan react, JavaScript, dan Tailwind.",
-        gitUrl: "/",
-        linkPreview: "/",
-        tags: ["web", "all"], // Menambahkan tag "web" dan "all"
+const container = {
+    hidden: { opacity: 0 },
+    show: {
+        opacity: 1,
+        transition: {
+            staggerChildren: 1, // Waktu jeda antara munculnya item
+        },
     },
-    {
-        id: 2,
-        title: "Aplikasi Todo List",
-        linkImage: "https://example.com/todolist.jpg",
-        deskripsi:
-            "Membuat aplikasi todo list sederhana dengan React untuk membantu mengelola tugas sehari-hari.",
-        gitUrl: "/",
-        linkPreview: "/",
-        tags: ["mobile", "all"], // Menambahkan tag "mobile" dan "all"
-    },
-    {
-        id: 3,
-        title: "Sistem Inventory",
-        linkImage: "https://example.com/inventory.jpg",
-        deskripsi:
-            "Mengembangkan sistem manajemen inventory untuk toko retail menggunakan Node.js dan MongoDB.",
-        gitUrl: "/",
-        linkPreview: "/",
-        tags: ["web", "all"], // Menambahkan tag "web" dan "all"
-    },
-    {
-        id: 4,
-        title: "E-commerce Website",
-        linkImage: "https://example.com/ecommerce.jpg",
-        deskripsi:
-            "Membangun website e-commerce untuk penjualan online dengan fitur keranjang belanja dan pembayaran.",
-        gitUrl: "/",
-        linkPreview: "/",
-        tags: ["web", "all"], // Menambahkan tag "web" dan "all"
-    },
-    {
-        id: 5,
-        title: "Blog Teknologi",
-        linkImage: "https://example.com/blog.jpg",
-        deskripsi:
-            "Membuat blog teknologi menggunakan WordPress dengan fokus pada review gadget terbaru.",
-        gitUrl: "/",
-        linkPreview: "/",
-        tags: ["web", "all"], // Menambahkan tag "web" dan "all"
-    },
-];
+};
+
+const item = {
+    hidden: { opacity: 0, y: 20 },
+    show: { opacity: 1, y: 0 },
+};
 
 const ProjectSection = () => {
-    const [tag, setTag] = useState("All");
+    const [tag, setTag] = useState("all");
 
     const handleTagChange = (newTag) => {
         setTag(newTag);
@@ -67,7 +31,7 @@ const ProjectSection = () => {
         project.tags.includes(tag)
     );
     return (
-        <div>
+        <div id="projects">
             <h2 className="text-white text-center font-bold text-4xl mb-5">
                 Project
             </h2>
@@ -88,18 +52,24 @@ const ProjectSection = () => {
                     isSelected={tag === "mobile"}
                 />
             </div>
-            <div className="grid md:grid-cols-3 gap-8 md:gap-12">
+            <motion.div
+                initial="hidden"
+                animate="show"
+                variants={container}
+                className="grid md:grid-cols-3 gap-8 md:gap-12"
+            >
                 {projectFiltered.map((value) => (
-                    <ProjectCard
-                        key={value.id}
-                        imgUrl={value.linkImage}
-                        title={value.title}
-                        description={value.deskripsi}
-                        gitUrl={value.gitUrl}
-                        linkPreview={value.linkPreview}
-                    />
+                    <motion.div key={value.id} variants={item}>
+                        <ProjectCard
+                            imgUrl={value.linkImage}
+                            title={value.title}
+                            description={value.deskripsi}
+                            gitUrl={value.gitUrl}
+                            linkPreview={value.linkPreview}
+                        />
+                    </motion.div>
                 ))}
-            </div>
+            </motion.div>
         </div>
     );
 };
